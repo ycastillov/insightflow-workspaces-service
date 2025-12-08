@@ -1,7 +1,7 @@
 namespace InsightFlow.WorkspacesService.Src.DTOs
 {
     /// <summary>
-    /// Clase que representa la solicitud para crear un espacio de trabajo.
+    /// DTO que representa la solicitud para crear un espacio de trabajo.
     /// </summary>
     public class CreateWorkspaceRequest
     {
