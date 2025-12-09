@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FluentValidation;
+using InsightFlow.WorkspacesService.Src.DTOs;
 
 namespace InsightFlow.WorkspacesService.Src.Validators
 {
     public class UpdateWorkspaceValidator : AbstractValidator<UpdateWorkspaceRequest>
     {
-        // private readonly IWorkspaceRepository _workspaceRepository;
         public UpdateWorkspaceValidator()
         {
             When(
@@ -16,7 +13,6 @@ namespace InsightFlow.WorkspacesService.Src.Validators
                 {
                     RuleFor(x => x.Name!)
                         .NotEmpty()
-                        .Must(BeUniqueName)
                         .WithMessage("El nombre del espacio de trabajo no puede estar vacío.")
                         .MaximumLength(100)
                         .WithMessage(
@@ -62,12 +58,6 @@ namespace InsightFlow.WorkspacesService.Src.Validators
                         .WithMessage("La imagen del espacio de trabajo no puede estar vacía.");
                 }
             );
-        }
-
-        private bool BeUniqueName(string name)
-        {
-            // Lógica para verificar si el nombre es único (por ejemplo, consultar la base de datos)
-            return true; // Cambiar según la lógica real
         }
     }
 }

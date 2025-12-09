@@ -1,13 +1,14 @@
+using FluentValidation;
+using InsightFlow.WorkspacesService.Src.DTOs;
+
 namespace InsightFlow.WorkspacesService.Src.Validators
 {
     public class CreateWorkspaceValidator : AbstractValidator<CreateWorkspaceRequest>
     {
-        // private readonly IWorkspaceRepository _workspaceRepository;
         public CreateWorkspaceValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
-                .Must(BeUniqueName)
                 .WithMessage("El nombre del espacio de trabajo es obligatorio.")
                 .MaximumLength(100)
                 .WithMessage(
@@ -35,12 +36,6 @@ namespace InsightFlow.WorkspacesService.Src.Validators
                 .WithMessage("La imagen del espacio de trabajo es obligatoria.")
                 .Must(file => file.Length > 0)
                 .WithMessage("La imagen del espacio de trabajo no puede estar vacía.");
-        }
-
-        private bool BeUniqueName(string name)
-        {
-            // Lógica para verificar si el nombre es único (por ejemplo, consultar la base de datos)
-            return true; // Cambiar según la lógica real
         }
     }
 }

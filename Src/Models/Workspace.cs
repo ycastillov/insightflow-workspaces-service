@@ -31,6 +31,11 @@ namespace InsightFlow.WorkspacesService.Src.Models
         public required string ImageUrl { get; set; }
 
         /// <summary>
+        /// Estad
+        /// </summary>
+        public bool IsActive { get; set; }
+
+        /// <summary>
         /// Recibe el identificador del usuario propietario del espacio de trabajo.
         /// </summary>
         public required Guid OwnerId { get; set; }
