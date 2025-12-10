@@ -1,6 +1,8 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using InsightFlow.WorkspacesService.Src.DTOs;
+using InsightFlow.WorkspacesService.Src.Interfaces;
+using InsightFlow.WorkspacesService.Src.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddControllers();
 
-// builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
+builder.Services.AddSingleton<IWorkspaceRepository, WorkspaceRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddFluentValidationAutoValidation();
