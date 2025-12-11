@@ -196,5 +196,12 @@ namespace InsightFlow.WorkspacesService.Src.Controllers
 
             return NoContent(); // 204 No Content
         }
+
+        // Agregamos endpoint health check
+        [HttpGet("health")]
+        public IActionResult HealthCheck()
+        {
+            return Ok(new { Status = "Workspaces Service is running." });
+        }
     }
 }
