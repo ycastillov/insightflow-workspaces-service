@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace InsightFlow.WorkspacesService.Src.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")] // Ruta base: /api/workspaces
+    [Route("api/[controller]")]
     public class WorkspacesController(
         IWorkspaceRepository repository,
         IMapper mapper,
@@ -88,7 +88,7 @@ namespace InsightFlow.WorkspacesService.Src.Controllers
             return CreatedAtAction(nameof(GetWorkspaceById), new { id = workspace.Id }, response);
         }
 
-        [HttpGet]
+        [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<WorkspaceListItemResponse>>> GetWorkspaces(
             Guid userId
         )
@@ -136,40 +136,28 @@ namespace InsightFlow.WorkspacesService.Src.Controllers
             [FromForm] UpdateWorkspaceRequest request
         )
         {
-            var loggedInUserId = GetUserIdFromContext();
             var existingWorkspace = await _repository.GetByIdAsync(id);
 
             if (existingWorkspace == null)
                 return NotFound();
 
-            // 1. Autorización: Solo puede ser realizado por el propietario (o Admin)
-            var userRole = existingWorkspace
-                .Members.FirstOrDefault(m => m.UserId == loggedInUserId)
-                ?.Role;
-            if (userRole != "Propietario")
-            {
-                return Forbid();
-            }
-
-            // 2. Validar Nombre Único si se está modificando
+            // Validar Nombre Único si se está modificando
             if (request.Name != null && await _repository.ExistsWithNameAsync(request.Name, id))
             {
                 return BadRequest(new { Message = "El nuevo nombre del espacio ya está en uso." });
             }
 
-            // 3. Manejo de Imagen (Si se proporciona una nueva, se reemplaza la anterior)
-            if (request.ImageFile != null)
+            // Manejo de Imagen (Si se proporciona una nueva, se reemplaza la anterior)
+            if (request.Image != null)
             {
                 // Lógica de eliminación de imagen anterior
                 if (!string.IsNullOrEmpty(existingWorkspace.ImagePublicId))
                 {
-                    // [MODIFICACIÓN 4: Implementación de la lógica de eliminación]
-                    // Asumimos que la eliminación es fire-and-forget, no bloqueamos la actualización si falla la eliminación
                     await _photoService.DeletePhotoAsync(existingWorkspace.ImagePublicId);
                 }
 
                 // Subida de nueva imagen
-                var uploadResult = await _photoService.AddPhotoAsync(request.ImageFile);
+                var uploadResult = await _photoService.AddPhotoAsync(request.Image);
                 if (uploadResult.Error != null)
                     return StatusCode(500, new { Message = "Error al subir la nueva imagen." });
 
@@ -179,13 +167,11 @@ namespace InsightFlow.WorkspacesService.Src.Controllers
 
             // 4. Mapear y Actualizar Modelo
             _mapper.Map(request, existingWorkspace);
-            existingWorkspace.UpdatedAt = DateTime.UtcNow;
 
             await _repository.UpdateAsync(existingWorkspace);
 
             // 5. Retornar Respuesta
             var response = _mapper.Map<WorkspaceResponse>(existingWorkspace);
-            response.Role = userRole;
             response.Members = _mapper.Map<List<WorkspaceMemberResponse>>(
                 existingWorkspace.Members
             );
@@ -196,18 +182,17 @@ namespace InsightFlow.WorkspacesService.Src.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWorkspace(Guid id)
         {
-            var userId = GetAuthenticatedUserId();
             var workspace = await _repository.GetByIdAsync(id);
 
             if (workspace == null)
                 return NotFound(); // Ya está inactivo o no existe
 
-            if (workspace.OwnerId != userId)
-            {
-                return Forbid();
-            }
-
             await _repository.SoftDeleteAsync(id);
+
+            if (!string.IsNullOrEmpty(workspace.ImagePublicId))
+                {
+                    await _photoService.DeletePhotoAsync(workspace.ImagePublicId);
+                }
 
             return NoContent(); // 204 No Content
         }

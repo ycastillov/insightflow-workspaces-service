@@ -14,7 +14,10 @@ namespace InsightFlow.WorkspacesService.Src.Profiles
             CreateMap<CreateWorkspaceRequest, Workspace>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore()) // El Id se generará en el Repository/Service
                 .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true)) // Por defecto activo
-                .ForMember(dest => dest.Members, opt => opt.Ignore()); // Los miembros se añaden después de la creación
+                .ForMember(dest => dest.Members, opt => opt.Ignore()) // Los miembros se añaden después de la creación
+                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore()) // La URL se asigna tras subir la imagen
+                .ForMember(dest => dest.ImagePublicId, opt => opt.Ignore()) // El PublicId se asigna tras subir la imagen
+                .ForMember(dest => dest.OwnerId, opt => opt.Ignore()); // El OwnerId se asigna en el controlador
 
             // --- Mapeo de Solicitud a Modelo (Para Actualización) ---
             // Mapea UpdateWorkspaceRequest a Workspace (se usa con la instancia existente del modelo)
@@ -38,7 +41,7 @@ namespace InsightFlow.WorkspacesService.Src.Profiles
             CreateMap<Workspace, WorkspaceListItemResponse>();
 
             // Mapeo de miembros para asegurar que el DTO de respuesta se serialice correctamente
-            // CreateMap<WorkspaceMember, WorkspaceMemberResponse>();
+            CreateMap<WorkspaceMember, WorkspaceMemberResponse>();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace InsightFlow.WorkspacesService.Src.Models
         /// <summary>
         /// URL de la imagen del espacio de trabajo.
         /// </summary>
-        public required string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
 
         /// <summary>
         /// Identificador público de la imagen en Cloudinary.
