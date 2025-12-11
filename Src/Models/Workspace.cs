@@ -31,6 +31,11 @@ namespace InsightFlow.WorkspacesService.Src.Models
         public required string ImageUrl { get; set; }
 
         /// <summary>
+        /// Identificador público de la imagen en Cloudinary.
+        /// </summary>
+        public string ImagePublicId { get; set; } = string.Empty;
+
+        /// <summary>
         /// Estad
         /// </summary>
         public bool IsActive { get; set; }

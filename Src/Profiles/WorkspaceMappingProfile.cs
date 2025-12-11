@@ -34,6 +34,9 @@ namespace InsightFlow.WorkspacesService.Src.Profiles
             // Mapea Workspace a WorkspaceResponse
             CreateMap<Workspace, WorkspaceResponse>();
 
+            // Mapeo para el listado (si tienes un DTO de listado más ligero, sino usa el mismo)
+            CreateMap<Workspace, WorkspaceListItemResponse>();
+
             // Mapeo de miembros para asegurar que el DTO de respuesta se serialice correctamente
             // CreateMap<WorkspaceMember, WorkspaceMemberResponse>();
         }

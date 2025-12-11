@@ -37,6 +37,7 @@ namespace InsightFlow.WorkspacesService.Src.Repositories
                 Description = "Espacio para el desarrollo del MVP",
                 Theme = "Tecnología",
                 ImageUrl = "http://example.com/alpha.png",
+                ImagePublicId = "alpha_public_id",
                 OwnerId = _testUserId, // Usuario Propietario
                 IsActive = true,
                 Members = new List<WorkspaceMember>
@@ -59,6 +60,7 @@ namespace InsightFlow.WorkspacesService.Src.Repositories
                 Description = "Archivos legales y HR",
                 Theme = "Legal",
                 ImageUrl = "http://example.com/docs.png",
+                ImagePublicId = "docs_public_id",
                 OwnerId = Guid.NewGuid(), // Otro propietario
                 IsActive = true,
                 Members = new List<WorkspaceMember>

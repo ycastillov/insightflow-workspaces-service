@@ -24,5 +24,11 @@ namespace InsightFlow.WorkspacesService.Src.DTOs.Response
         /// URL de la imagen del espacio de trabajo.
         /// </summary>
         public required string ImageUrl { get; set; }
+
+        // Requerido: Rol del usuario autenticado en el espacio (se asigna en el controlador)
+        public required string Role { get; set; }
+
+        // Requerido: Lista completa de miembros con sus ID, nombres y roles
+        public required List<WorkspaceMemberResponse> Members { get; set; } = [];
     }
 }
