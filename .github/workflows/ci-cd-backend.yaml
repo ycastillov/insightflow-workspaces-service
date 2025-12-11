@@ -1,0 +1,61 @@
+name: CI/CD Workspaces Service (Backend)
+
+# Se dispara cuando se hace un commit o merge a la rama principal (main)
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Define las variables de entorno que se usarán en todo el flujo
+env:
+  DOCKER_IMAGE_NAME: insightflow-workspaces-service 
+  DOCKER_REGISTRY: ${{ secrets.DOCKER_USERNAME }}
+  SERVICE_NAME: InsightFlow.WorkspacesService 
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      # --- INTEGRACIÓN CONTINUA (CI) ---
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Define el tag de la imagen con la fecha y el SHA corto del commit
+      - name: Generate Image Tag
+        id: image
+        run: |
+          VERSION=$(echo ${{ github.sha }} | cut -c1-8)
+          TAGS="${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${VERSION},${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest"
+          echo "DOCKER_TAGS=$TAGS" >> $GITHUB_OUTPUT
+          
+      - name: Build and Push Docker Image to Docker Hub
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.image.outputs.DOCKER_TAGS }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # --- DESPLIEGUE CONTINUO (CD) ---
+
+      - name: Call Render Deploy Webhook
+        # Este paso dispara el despliegue automático en Render
+        run: |
+          echo "Notifying Render for new deployment..."
+          curl -X POST ${{ secrets.RENDER_DEPLOY_WEBHOOK }}
+        # Añadir 'if' para asegurar que solo se ejecute si la subida fue exitosa
+        if: success()
