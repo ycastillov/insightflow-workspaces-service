@@ -81,4 +81,3 @@ El servicio se iniciará en `http://localhost:5250` (o el puerto configurado en 
 
 4. **Pruebas con Postman:**
 * Utilice el **Usuario de Prueba/Seeder ID** (`d084f70c-238d-44a3-a7d0-1a7795325c34`) para probar el *endpoint* de listado: `GET http://localhost:5250/api/workspaces/user/d084f70c-238d-44a3-a7d0-1a7795325c34`.
-* Para *endpoints* que requieren validación de membresía (GET por ID, PATCH, DELETE), use el Header **`X-User-Id`** en Postman con el valor del ID de prueba.
