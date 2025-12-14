@@ -49,11 +49,11 @@ builder.Logging.AddDebug();
 
 var app = builder.Build();
 
-app.UseCors("DefaultCorsPolicy");
-
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+app.UseCors("DefaultCorsPolicy");
 
 app.UseAuthorization();
 
