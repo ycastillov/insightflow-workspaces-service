@@ -36,7 +36,8 @@ namespace InsightFlow.WorkspacesService.Src.Repositories
                 Name = "Proyecto Alpha",
                 Description = "Espacio para el desarrollo del MVP",
                 Theme = "Tecnología",
-                ImageUrl = "http://example.com/alpha.png",
+                ImageUrl =
+                    "https://res.cloudinary.com/dnsxvmlto/image/upload/v1765465519/insightflow/workspaces/wjaldskvyl3wzobgsvtv.jpg",
                 ImagePublicId = "alpha_public_id",
                 OwnerId = _testUserId, // Usuario Propietario
                 IsActive = true,
@@ -59,7 +60,8 @@ namespace InsightFlow.WorkspacesService.Src.Repositories
                 Name = "Documentación Interna",
                 Description = "Archivos legales y HR",
                 Theme = "Legal",
-                ImageUrl = "http://example.com/docs.png",
+                ImageUrl =
+                    "https://res.cloudinary.com/dnsxvmlto/image/upload/v1765465519/insightflow/workspaces/wjaldskvyl3wzobgsvtv.jpg",
                 ImagePublicId = "docs_public_id",
                 OwnerId = Guid.NewGuid(), // Otro propietario
                 IsActive = true,
