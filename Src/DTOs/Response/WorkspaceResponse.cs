@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace InsightFlow.WorkspacesService.Src.DTOs.Response
 {
     /// <summary>
@@ -8,7 +10,8 @@ namespace InsightFlow.WorkspacesService.Src.DTOs.Response
         /// <summary>
         /// ID del espacio de trabajo.
         /// </summary>
-        public string? Id { get; set; }
+        [JsonPropertyName("id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Nombre del espacio de trabajo.
