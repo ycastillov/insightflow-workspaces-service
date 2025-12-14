@@ -6,6 +6,11 @@ namespace InsightFlow.WorkspacesService.Src.DTOs.Response
     public class WorkspaceResponse
     {
         /// <summary>
+        /// ID del espacio de trabajo.
+        /// </summary>
+        public string? Id { get; set; }
+
+        /// <summary>
         /// Nombre del espacio de trabajo.
         /// </summary>
         public required string Name { get; set; }

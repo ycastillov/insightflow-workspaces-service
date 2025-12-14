@@ -190,9 +190,9 @@ namespace InsightFlow.WorkspacesService.Src.Controllers
             await _repository.SoftDeleteAsync(id);
 
             if (!string.IsNullOrEmpty(workspace.ImagePublicId))
-                {
-                    await _photoService.DeletePhotoAsync(workspace.ImagePublicId);
-                }
+            {
+                await _photoService.DeletePhotoAsync(workspace.ImagePublicId);
+            }
 
             return NoContent(); // 204 No Content
         }
