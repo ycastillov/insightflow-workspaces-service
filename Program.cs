@@ -22,7 +22,34 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateWorkspaceRequest>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateWorkspaceRequest>();
 
+var corsSettings = builder.Configuration.GetSection("CorsSettings");
+var allowedOrigins = corsSettings.GetSection("AllowedOrigins").Get<string[]>();
+var allowedMethods = corsSettings.GetSection("AllowedMethods").Get<string[]>();
+var allowedHeaders = corsSettings.GetSection("AllowedHeaders").Get<string[]>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        "DefaultCorsPolicy",
+        policy =>
+        {
+            policy
+                .WithOrigins(allowedOrigins!)
+                .WithHeaders(allowedHeaders!)
+                .WithMethods(allowedMethods!)
+                .AllowCredentials();
+        }
+    );
+});
+
+// Configurar logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
 var app = builder.Build();
+
+app.UseCors("DefaultCorsPolicy");
 
 app.UseHttpsRedirection();
 
