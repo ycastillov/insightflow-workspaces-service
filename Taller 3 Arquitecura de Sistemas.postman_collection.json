@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "009e1ebe-baae-4524-9767-e62fb991ac02",
+		"name": "Taller 3 Arquitecura de Sistemas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34959438"
+	},
+	"item": [
+		{
+			"name": "Get Workspaces",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5250/api/workspaces/user/d084f70c-238d-44a3-a7d0-1a7795325c34",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5250",
+					"path": [
+						"api",
+						"workspaces",
+						"user",
+						"d084f70c-238d-44a3-a7d0-1a7795325c34"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Workspace",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "Proyecto Mars",
+							"type": "text"
+						},
+						{
+							"key": "Description",
+							"value": "Planificación de la migración del sistema.",
+							"type": "text"
+						},
+						{
+							"key": "Theme",
+							"value": "Tecnología",
+							"type": "text"
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/yamca/OneDrive/Desktop/Yamir/Imagenes/Workspace.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5250/api/workspaces/d084f70c-238d-44a3-a7d0-1a7795325c34",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5250",
+					"path": [
+						"api",
+						"workspaces",
+						"d084f70c-238d-44a3-a7d0-1a7795325c34"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Workspace by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5250/api/workspaces/26e965f8-3d1f-4cf9-b5e2-b1698c60c2d4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5250",
+					"path": [
+						"api",
+						"workspaces",
+						"26e965f8-3d1f-4cf9-b5e2-b1698c60c2d4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Workspace",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "Proyecto Jupiter",
+							"type": "text"
+						},
+						{
+							"key": "Description",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "Theme",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "Image",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5250/api/workspaces/c3905a0e-b312-4531-ad59-067e263db77a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5250",
+					"path": [
+						"api",
+						"workspaces",
+						"c3905a0e-b312-4531-ad59-067e263db77a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Soft Delete workspace",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5250/api/workspaces/26e965f8-3d1f-4cf9-b5e2-b1698c60c2d4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5250",
+					"path": [
+						"api",
+						"workspaces",
+						"26e965f8-3d1f-4cf9-b5e2-b1698c60c2d4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5250/api/workspaces/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5250",
+					"path": [
+						"api",
+						"workspaces",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
