@@ -66,8 +66,8 @@ El foco principal de este taller es la automatización del despliegue. El servic
 ### Instrucciones
 1. **Clonar el Repositorio:**
 ```bash
-git clone https://github.com/ycastillov/insightflow-workspaces-service.git
-cd insightflow-workspaces-service
+git clone https://github.com/Taller-3-Arq-de-Sistemas/insightflow-workspaces.git
+cd insightflow-workspaces
 ```
 2. **Instalar Dependencias:**
 ```bash
